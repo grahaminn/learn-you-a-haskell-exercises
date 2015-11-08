@@ -16,14 +16,15 @@ combineLists a Empty = a
 combineLists (Value a l) b = Value a (combineLists l b) 
 
 -- Make our list a Monoid
-instance Monoid List where
+instance Monoid (List a) where
 	mempty = Empty
-	mappend = combineLists
+	mappend a b = combineLists a b
 
 -- Make our list an Applicative
 instance Applicative List where
-	pure x = Value x
-	fs <*> ls = fmap fs ls 
+	pure x = (Value x) Empty
+	Empty <*> ls = Empty
+	(Value f fs) <*> ls = mappend (fmap f ls) (fs <*> ls)
 
 -- Make sure that the List obeys the laws for Applicative and Monoid
 
@@ -35,7 +36,14 @@ fourValueList = Value 4 $ Value 17 $ Value 5 $ Value 8 Empty
 plusTwo = (+2) <$> fourValueList
 
 -- Use <$> and <*> on the lists with a binary function
+addOne = (+1) <$> fourValueList
+timesTwo = (Value (*2) Empty) <*> twoValueList
 
 -- Create some lists of binary functions
 
+ops = (Value (+) (Value (*) (Value (/) Empty)))
+
 -- Use <*> on the binary functions list and the number lists
+
+testOps = ops <*> twoValueList <*> fourValueList
+
