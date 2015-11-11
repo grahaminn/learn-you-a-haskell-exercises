@@ -16,14 +16,15 @@ combineLists a Empty = a
 combineLists (Value a l) b = Value a (combineLists l b) 
 
 -- Make our list a Monoid
-instance Monoid List where
+instance Monoid (List a) where
 	mempty = Empty
 	mappend = combineLists
 
 -- Make our list an Applicative
 instance Applicative List where
-	pure x = Value x
-	fs <*> ls = fmap fs ls 
+	pure x = (Value x) Empty
+	(pure f) <*> list = f <$> list
+	(Value f fs) <*> list = (f <$> list) <*> (fs <*> list)   
 
 -- Make sure that the List obeys the laws for Applicative and Monoid
 
