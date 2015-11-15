@@ -12,7 +12,10 @@
  -
  - The pattern for the gcd' function in the chapter is helpful. That is: pattern match, guard and using tell and return in the do notation.
  -   
- - Note, There appear to have been some changes to ghc since Learn You a Haskell was written. There is no data constructor exposed for Writer, like described in the chapter. You cannot do things like: logNumber x = Writer (x, ["Got number: " ++ show x]). However there is a 'writer' function, which works in the same way as that constructor would. That is, you could do: logNumber x = writer (x, ["Got number: " ++ show x]). For more information, see http://stackoverflow.com/questions/11684321/how-to-play-with-control-monad-writer-in-haskell
+ - Note, There appear to have been some changes to ghc since Learn You a Haskell was written. 
+ - There is no data constructor exposed for Writer, like described in the chapter. 
+ - You cannot do things like: logNumber x = Writer (x, ["Got number: " ++ show x]). However there is a 'writer' function, which works in the same way as that constructor would. 
+ - That is, you could do: logNumber x = writer (x, ["Got number: " ++ show x]). For more information, see http://stackoverflow.com/questions/11684321/how-to-play-with-control-monad-writer-in-haskell
  - That said, it is possible to create the Writers necessary for this exercise using only return and tell.
  -
  - It may help to write a function first, "describe", which returns a description of the comparison at each step. This function would return a single element list of type String (remember, lists are monoids). Such a function could run as follows:
