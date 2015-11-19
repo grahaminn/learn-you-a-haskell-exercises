@@ -5,7 +5,7 @@
  -   Success, which takes that parameter and
  -   Fail String, which represents a failure, and a reason for that failure
  -}
-data Validation a = Success a | Fail String 
+data Validation a = Success a | Fail String deriving Show 
 
 -- Make the Validation a Monad
 instance Monad Validation where
@@ -20,7 +20,7 @@ instance Monad Validation where
  -}
 positiveCheck :: (Num a, Ord a) => a -> Validation a
 positiveCheck x | x < 0 = fail "x is negative"
-				| x >= 0 = return x 
+		| x >= 0 = return x 
 
 {-
  - Create a function, evenCheck, which returns a successful Validation if it's even,
@@ -28,7 +28,7 @@ positiveCheck x | x < 0 = fail "x is negative"
  -}
 evenCheck :: (Integral a)  =>  a -> Validation a
 evenCheck x | mod x 2 == 0 = return x
-			| mod x 2 == 1 = fail "x is an odd number"
+	    | mod x 2 == 1 = fail "x is an odd number"
 
 {-
  - Write a function which uses positiveCheck and evenCheck to make sure a number is both positive and even

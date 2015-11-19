@@ -22,8 +22,8 @@ instance Monoid (List a) where
 
 -- Make our list an Applicative
 instance Applicative List where
-	pure x = (Value x) Empty
-	Empty <*> ls = Empty
+	pure x = (Value x) mempty
+	Empty <*> ls = mempty
 	(Value f fs) <*> ls = mappend (fmap f ls) (fs <*> ls)
 
 -- Make sure that the List obeys the laws for Applicative and Monoid
